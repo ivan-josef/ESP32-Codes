@@ -1,1 +1,27 @@
 
+
+const int PINO_LED = 15;   // Pino D15 conectado ao LED
+const int PINO_BOTAO = 2;  // Pino D2 conectado ao botão
+bool estadoAnteriorBotao = HIGH; // Variável para armazenar o estado anterior do botão
+bool estadoLed = false;    // Variável para armazenar o estado do LED
+int tempo = 0;
+int contador = 2000;
+void setup() {
+  pinMode(PINO_LED, OUTPUT);    // Define o PINO do LED como saída
+  pinMode(PINO_BOTAO, INPUT); // Define o PINO do botão 
+}
+void loop() { 
+  unsigned long int tempo_atual = millis();
+  int botaoPressionado = digitalRead(PINO_BOTAO); // Lê o estado do botão
+  // Verifica se o botão foi pressionado
+  if (botaoPressionado != estadoAnteriorBotao ) {
+    if (tempo_atual - tempo >= contador)
+      digitalWrite(PINO_LED, HIGH); // Liga ou desliga o LED conforme o estado atual
+  }
+  digitalWrite(PINO_LED, LOW);
+  tempo = tempo_atual;
+  estadoAnteriorBotao = botaoPressionado; // Atualiza o estado anterior do botão
+}
+
+
+
